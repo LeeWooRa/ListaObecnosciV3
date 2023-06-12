@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="114.0" prefWidth="613.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientapp.listaobecnosci.CheckPresentsController">
+    <children>
+        <Pane prefHeight="134.0" prefWidth="613.0">
+            <children>
+                <ChoiceBox fx:id="presents" layoutX="322.0" layoutY="42.0" prefHeight="31.0" prefWidth="230.0" />
+                <Label fx:id="name" layoutX="68.0" layoutY="49.0" styleClass="formLabel" text="Imię" />
+                <Label fx:id="index" layoutX="193.0" layoutY="49.0" styleClass="formLabel" text="Numer indeksu" />
+            </children>
+        </Pane>
+    </children>
+</VBox>
