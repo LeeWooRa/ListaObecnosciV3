@@ -1,12 +1,15 @@
 package clientapp.listaobecnosci;
 
+import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-
+import clientapp.listaobecnosci.Shared.Entities.Student;
+import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
+import clientapp.listaobecnosci.Shared.Enums.ServerAction;
 import java.io.IOException;
 
 public class AddStudentController {
@@ -21,8 +24,11 @@ public class AddStudentController {
     private Parent root;
 
     @FXML
-    protected void onAddClick() {
-
+    protected void onAddClick() throws Exception {
+        Student student = new Student(firstName.getText(), lastName.getText(), index.getText(), (Integer) group.getValue());
+        DataHandler<Student> dh = new DataHandler<Student>("CreateStudent", student);
+        String json = JsonConverter.convertClassToJson(dh);
+        String respond = Utils.connectToServer(json);
     }
 
     @FXML
