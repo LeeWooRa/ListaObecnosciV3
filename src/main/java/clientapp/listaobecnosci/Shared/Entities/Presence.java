@@ -1,6 +1,7 @@
 package clientapp.listaobecnosci.Shared.Entities;
 
 public class Presence {
+    private Integer presenceId;
 
     private String studentIndex;
 
@@ -10,7 +11,8 @@ public class Presence {
     public Presence() {
     }
 
-    public Presence(String studentIndex, int periodId, String status) {
+    public Presence(Integer presenceId, String studentIndex, int periodId, String status) {
+        this.presenceId = presenceId;
         this.studentIndex = studentIndex;
         this.periodId = periodId;
         this.status = status;
@@ -40,6 +42,14 @@ public class Presence {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getPresenceId() {
+        return presenceId;
+    }
+
+    public void setPresenceId(Integer presenceId) {
+        this.presenceId = presenceId;
     }
 }
 
