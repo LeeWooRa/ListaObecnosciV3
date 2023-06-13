@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="610.0" prefWidth="613.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="clientapp.listaobecnosci.HomeController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-  </padding>
-
-  <Label fx:id="welcomeText" />
-  <Button onAction="#onAddStudentClick" text="Dodaj Studenta" />
-  <Button onAction="#onDeletStudentClick" text="Usuń Studenta" />
-  <Button onAction="#onAddGroupClick" text="Dodaj grupę" />
-  <Button onAction="#onDeleteGroupClick" text="Usuń grupę" />
-  <Button onAction="#onAddStudentToGroupClick" text="Dodaj studenta do grupy" />
-  <Button onAction="#onRemoveStudentFromGroupClick" text="Usuń studenta z grupy" />
-  <Button onAction="#onAddPeriodClick" text="Dodaj termin" />
-  <Button onAction="#onCheckPresentsClick" text="Sprawdź obecność" />
-  <Button onAction="#onShowPresentsClick" text="Wyświetl dziennik obecności" />
+<VBox alignment="CENTER" prefHeight="610.0" prefWidth="613.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientapp.listaobecnosci.HomeController">
+   <Label text="Lista Obecności" textAlignment="CENTER">
+   </Label>
+   <GridPane alignment="CENTER" maxWidth="400.0" minHeight="0.0" minWidth="0.0" prefHeight="271.0" prefWidth="100.0">
+     <columnConstraints>
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
+     </columnConstraints>
+     <rowConstraints>
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+        <Button onAction="#onDeletStudentClick" prefHeight="30.0" prefWidth="170.0" text="Usuń Studenta" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <Button onAction="#onAddSubjectClick" prefHeight="30.0" prefWidth="170.0" text="Dodaj Przedmiot" GridPane.rowIndex="2" />
+         <Button onAction="#onDeleteSubjectClick" prefHeight="30.0" prefWidth="170.0" text="Usuń przedmiot" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button onAction="#onAddGroupClick" prefHeight="30.0" prefWidth="170.0" text="Dodaj grupę" GridPane.rowIndex="3" />
+        <Button onAction="#onDeleteGroupClick" prefHeight="30.0" prefWidth="170.0" text="Usuń grupę" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button onAction="#onAddStudentToGroupClick" prefHeight="30.0" prefWidth="170.0" text="Dodaj studenta do grupy" GridPane.rowIndex="1" />
+        <Button onAction="#onAddPeriodClick" prefHeight="30.0" prefWidth="170.0" text="Dodaj termin" GridPane.rowIndex="5" />
+        <Button onAction="#onCheckPresentsClick" prefHeight="30.0" prefWidth="170.0" text="Sprawdź obecność" />
+        <Button onAction="#onShowPresentsClick" prefHeight="30.0" prefWidth="170.0" text="Wyświetl dziennik obecności" GridPane.columnIndex="1" />
+         <Button mnemonicParsing="false" onAction="#onDeletePeriodClick" prefHeight="30.0" prefWidth="170.0" text="Usuń Termin" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      
+              <Button onAction="#onAddStudentClick" prefHeight="30.0" prefWidth="170.0" text="Dodaj Studenta" GridPane.rowIndex="4" />
+        <Button onAction="#onRemoveStudentFromGroupClick" prefHeight="30.0" prefWidth="170.0" text="Usuń studenta z grupy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      </children>
+   </GridPane>
 </VBox>

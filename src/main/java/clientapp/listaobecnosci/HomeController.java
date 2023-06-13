@@ -52,6 +52,11 @@ public class HomeController {
         Utils.switchScene(event, root);
     }
     @FXML
+    protected void onDeletePeriodClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("DeletePeriod.fxml"));
+        Utils.switchScene(event, root);
+    }
+    @FXML
     protected void onCheckPresentsClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("CheckPresentsList.fxml"));
         Utils.switchScene(event, root);
@@ -59,6 +64,18 @@ public class HomeController {
     @FXML
     protected void onShowPresentsClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("ShowPresents.fxml"));
+        Utils.switchScene(event, root);
+    }
+
+    @FXML
+    protected void onAddSubjectClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("AddSubject.fxml"));
+        Utils.switchScene(event, root);
+    }
+
+    @FXML
+    protected void onDeleteSubjectClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("DeleteSubject.fxml"));
         Utils.switchScene(event, root);
     }
 }

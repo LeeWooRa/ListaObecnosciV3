@@ -24,6 +24,7 @@
             <ChoiceBox fx:id="startTime" layoutX="241.0" layoutY="220.0" prefHeight="31.0" prefWidth="149.0" />
             <ChoiceBox fx:id="subject" layoutX="68.0" layoutY="312.0" prefHeight="31.0" prefWidth="230.0" />
             <Button layoutX="281.0" layoutY="528.0" mnemonicParsing="false" onAction="#onBackClick" text="Powrót" />
+                <Label fx:id="resultMsg" alignment="CENTER" layoutY="441.0" prefHeight="17.0" prefWidth="613.0" text="efr" textAlignment="CENTER" />
             </children>
         </Pane>
     </children>
