@@ -2,7 +2,7 @@ package clientapp.listaobecnosci.Shared.Entities;
 
 
 public class StudentGroup {
-    private int groupId;
+    private Integer groupId;
     private String groupName;
 
     public StudentGroup() {
@@ -12,18 +12,18 @@ public class StudentGroup {
         this.groupName = groupName;
     }
 
-    public StudentGroup(int groupId, String groupName) {
+    public StudentGroup(Integer groupId, String groupName) {
         this.groupId = groupId;
         this.groupName = groupName;
     }
 
     // Getters and setters for the class variables
 
-    public int getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
