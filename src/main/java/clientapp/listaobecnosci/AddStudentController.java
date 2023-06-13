@@ -1,6 +1,8 @@
 package clientapp.listaobecnosci;
 
 import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
+import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
+import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,9 @@ public class AddStudentController {
         DataHandler<Student> dh = new DataHandler<Student>("CreateStudent", student);
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);
+        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
+        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
+        System.out.println(dataHandler.getData());
     }
 
     @FXML
