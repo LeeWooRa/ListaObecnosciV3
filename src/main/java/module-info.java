@@ -9,4 +9,10 @@ module clientapp.listaobecnosci {
 
     opens clientapp.listaobecnosci to javafx.fxml;
     exports clientapp.listaobecnosci;
+    exports clientapp.listaobecnosci.Shared.Helpers.DataHandler;
+    exports clientapp.listaobecnosci.Shared.Helpers.ResponseHandler;
+    exports clientapp.listaobecnosci.Shared.Helpers;
+    exports clientapp.listaobecnosci.Shared.Entities;
+    exports clientapp.listaobecnosci.Shared.Enums;
+    exports clientapp.listaobecnosci.Shared.ViewModels;
 }
