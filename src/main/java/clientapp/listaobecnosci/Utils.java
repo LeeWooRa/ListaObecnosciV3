@@ -12,15 +12,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
+/**
+ * Klasa zawierająca często używane funkcje
+ * */
 public class Utils {
+    /**
+     * Funkcja do zmieniania sceny po kliknięciu w przycisk
+     * @param event zdarzenie z którego wyciągnięte zostanie okno
+     * @param root załądowany szablon z pliku .fxml
+     * */
     public static void switchScene(ActionEvent event, Parent root) throws IOException {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-
+    /**
+     * Funkcja która wysyła zapytanie do serwera
+     * @param jsonToSend wiadomość jaka ma zostać wysłana
+     * @return odpowiedź srwera
+     * */
     public static String connectToServer(String jsonToSend){
         String json = "";
 
