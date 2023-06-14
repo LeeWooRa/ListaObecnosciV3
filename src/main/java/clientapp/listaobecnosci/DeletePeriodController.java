@@ -76,7 +76,7 @@ public class DeletePeriodController implements Initializable {
         String selectedPeriod = period.getValue();
         Integer periodId = -1;
         for (Period per : periodList) {
-            if((per.getDate()+" "+per.getStartTime()+" - "+per.getEndTime()) == selectedPeriod){
+            if((per.getDate() + " " + per.getStartTime() + " - " + per.getEndTime()).equals(selectedPeriod)){
                 periodId = per.getPeriodId();
                 break;
             }
