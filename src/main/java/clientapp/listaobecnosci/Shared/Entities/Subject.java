@@ -3,7 +3,7 @@ package clientapp.listaobecnosci.Shared.Entities;
 
 public class Subject {
 
-    private int subjectId;
+    private Integer subjectId;
     private String name;
 
     public Subject() {

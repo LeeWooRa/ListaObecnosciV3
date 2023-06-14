@@ -7,7 +7,6 @@ import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
 import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
 import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
 import clientapp.listaobecnosci.Shared.ViewModels.GetPeriodsListVm;
-import clientapp.listaobecnosci.Shared.ViewModels.GetPresentsListVm;
 import clientapp.listaobecnosci.Shared.ViewModels.PresenceVm;
 import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.collections.FXCollections;
@@ -133,8 +132,7 @@ public class ShowPresentsController implements Initializable {
                 break;
             }
         }
-        GetPresentsListVm presentsList = new GetPresentsListVm(groupId, periodId);
-        DataHandler<GetPresentsListVm> dh = new DataHandler<GetPresentsListVm>("getPresenceList", presentsList);
+        DataHandler<Integer> dh = new DataHandler<Integer>("getPresenceList", periodId);
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);
         TypeReference<ResponseHandler<ArrayList<PresenceVm>>> typeReference = new TypeReference<ResponseHandler<ArrayList<PresenceVm>>>() {};
