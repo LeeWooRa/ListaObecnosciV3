@@ -119,7 +119,8 @@ public class ShowPresentsController implements Initializable {
         String selectedPeriod = period.getValue();
         Integer periodId = -1;
         for (Period per : periodList) {
-            if((per.getDate()+" "+per.getStartTime()+" - "+per.getEndTime()) == selectedPeriod){
+            String test = per.getDate()+" "+per.getStartTime()+" - "+per.getEndTime();
+            if(test.equals(selectedPeriod)){
                 periodId = per.getPeriodId();
                 break;
             }
@@ -132,7 +133,7 @@ public class ShowPresentsController implements Initializable {
                 break;
             }
         }
-        DataHandler<Integer> dh = new DataHandler<Integer>("getPresenceList", periodId);
+        DataHandler<Integer> dh = new DataHandler<Integer>("GetPresenceList", periodId);
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);
         TypeReference<ResponseHandler<ArrayList<PresenceVm>>> typeReference = new TypeReference<ResponseHandler<ArrayList<PresenceVm>>>() {};
