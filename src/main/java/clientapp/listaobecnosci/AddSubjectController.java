@@ -30,7 +30,7 @@ public class AddSubjectController implements Initializable {
     }
     @FXML
     protected void onAddClick() throws Exception {
-        Subject subject = new Subject(subjectName.getText());
+        Subject subject = new Subject(null, subjectName.getText());
         DataHandler<Subject> dh = new DataHandler<Subject>("CreateSubject", subject);
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);
