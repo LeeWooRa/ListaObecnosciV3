@@ -23,17 +23,18 @@ import java.util.ResourceBundle;
 
 public class AddStudentToGroupController implements Initializable {
     @FXML
-    TextField studentIndex;
+    ChoiceBox<String> studentIndex;
     @FXML
     ChoiceBox<String> group;
     @FXML
     Label resultMsg;
     private Parent root;
     private ArrayList<StudentGroup> groupList;
+    private ArrayList<Student> studentList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<StudentGroup>> dh = new DataHandler<ArrayList<StudentGroup>>("GetStudentGroupList", null);
-        String json = null;
+        String json;
         try {
             json = JsonConverter.convertClassToJson(dh);
             String respond = Utils.connectToServer(json);
@@ -48,28 +49,33 @@ public class AddStudentToGroupController implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        DataHandler<ArrayList<Student>> dhs = new DataHandler<ArrayList<Student>>("GetStudentsWithoutGroupList", null);
+        try {
+            json = JsonConverter.convertClassToJson(dhs);
+            String respond = Utils.connectToServer(json);
+            TypeReference<ResponseHandler<ArrayList<Student>>> typeReference = new TypeReference<ResponseHandler<ArrayList<Student>>>() {};
+            ResponseHandler<ArrayList<Student>> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
+            if (dataHandler.isSuccess()) {
+                studentList = dataHandler.getData();
+                for (Student student : studentList) {
+                    studentIndex.getItems().add(student.getFirstName()+" "+student.getLastName()+" "+student.getStudentIndex());
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     @FXML
     protected void onAddClick() throws Exception {
-        String selectedGroupName = group.getValue();
-        Integer groupId = -1;
-        for (StudentGroup gr : groupList) {
-            if(gr.getGroupName().equals(selectedGroupName)){
-                groupId = gr.getGroupId();
-                break;
-            }
-        }
-        StudentToGroupVm studendToGroup = new StudentToGroupVm(groupId, studentIndex.getText());
+        Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+
+        String selectedStudent = studentIndex.getValue();
+        String[] splitedString = selectedStudent.split(" ");
+
+        StudentToGroupVm studendToGroup = new StudentToGroupVm(groupId, splitedString[2]);
         DataHandler<StudentToGroupVm> dh = new DataHandler<StudentToGroupVm>("AssigneStudentToGroup", studendToGroup);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Dodano Studenta do grupy");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Dodano Studenta do grupy");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {

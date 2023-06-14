@@ -1,7 +1,6 @@
 package clientapp.listaobecnosci;
 
 import clientapp.listaobecnosci.Shared.Entities.Student;
-import clientapp.listaobecnosci.Shared.Entities.StudentGroup;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
 import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
 import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
@@ -13,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,15 +48,7 @@ public class DeleteStudentController implements Initializable {
         String selectedStudent = studentIndex.getValue();
         String[] splitedString = selectedStudent.split(" ");
         DataHandler<String> dh = new DataHandler<String>("DeleteStudent", splitedString[2]);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Usunięto studenta");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Usunięto studenta");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {

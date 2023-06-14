@@ -55,25 +55,11 @@ public class AddStudentController implements Initializable {
 
     @FXML
     protected void onAddClick() throws Exception {
-        String selectedGroupName = group.getValue();
-        Integer groupId = -1;
-        for (StudentGroup gr : groupList) {
-            if(gr.getGroupName().equals(selectedGroupName)){
-                groupId = gr.getGroupId();
-                break;
-            }
-        }
+        Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+
         Student student = new Student(firstName.getText(), lastName.getText(), index.getText(), groupId);
         DataHandler<Student> dh = new DataHandler<Student>("CreateStudent", student);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Dodano Studenta");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Dodano Studenta");
     }
 
     @FXML

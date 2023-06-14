@@ -1,7 +1,6 @@
 package clientapp.listaobecnosci;
 
 import clientapp.listaobecnosci.Shared.Entities.Period;
-import clientapp.listaobecnosci.Shared.Entities.Student;
 import clientapp.listaobecnosci.Shared.Entities.StudentGroup;
 import clientapp.listaobecnosci.Shared.Entities.Subject;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
@@ -9,7 +8,6 @@ import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
 import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
 import clientapp.listaobecnosci.Shared.ViewModels.GetPeriodsListVm;
 import com.fasterxml.jackson.core.type.TypeReference;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,24 +71,10 @@ public class DeletePeriodController implements Initializable {
     }
     @FXML
     protected void onDeleteClick() throws Exception {
-        String selectedPeriod = period.getValue();
-        Integer periodId = -1;
-        for (Period per : periodList) {
-            if((per.getDate() + " " + per.getStartTime() + " - " + per.getEndTime()).equals(selectedPeriod)){
-                periodId = per.getPeriodId();
-                break;
-            }
-        }
+        Integer periodId = Utils.getPeriodIdFromListView(period.getValue(), periodList);
+
         DataHandler<Integer> dh = new DataHandler<Integer>("DeletePeriod", periodId);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Usunięto termin");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Usunięto termin");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {
@@ -100,22 +84,8 @@ public class DeletePeriodController implements Initializable {
     @FXML
     protected void getPeriodList() throws Exception {
         if(subject.getValue() != null && group.getValue() != null){
-            String selectedGroupName = group.getValue();
-            Integer groupId = -1;
-            for (StudentGroup gr : groupList) {
-                if(gr.getGroupName() == selectedGroupName){
-                    groupId = gr.getGroupId();
-                    break;
-                }
-            }
-            String selectedSubjectName = subject.getValue();
-            Integer subjectId = -1;
-            for (Subject sub : subjectList) {
-                if(sub.getName() == selectedGroupName){
-                    subjectId = sub.getSubjectId();
-                    break;
-                }
-            }
+            Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+            Integer subjectId = Utils.getSubjectIdFromListView(subject.getValue(), subjectList);
 
             GetPeriodsListVm periodListVm = new GetPeriodsListVm(groupId, subjectId);
             DataHandler<GetPeriodsListVm> dh = new DataHandler<GetPeriodsListVm>("GetListForGroupAndSubject", periodListVm);

@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -11,7 +10,6 @@
     <children>
         <Pane prefHeight="612.0" prefWidth="613.0">
             <children>
-                <TextField fx:id="studentIndex" layoutX="69.0" layoutY="264.0" prefHeight="31.0" prefWidth="230.0" />
                 <ChoiceBox fx:id="group" layoutX="315.0" layoutY="265.0" prefHeight="31.0" prefWidth="230.0" />
                 <Label layoutX="69.0" layoutY="233.0" styleClass="formLabel" text="Index studenta" />
                 <Label layoutX="315.0" layoutY="233.0" styleClass="formLabel" text="Grupa" />
@@ -19,6 +17,7 @@
                 <Label layoutX="238.0" layoutY="168.0" styleClass="title" text="Dodaj studenta do grupy" />
             <Button layoutX="281.0" layoutY="531.0" mnemonicParsing="false" onAction="#onBackClick" text="Powrót" />
                 <Label fx:id="resultMsg" alignment="CENTER" layoutY="400.0" prefHeight="17.0" prefWidth="613.0" text="efr" textAlignment="CENTER" />
+            <ChoiceBox fx:id="studentIndex" layoutX="69.0" layoutY="265.0" prefHeight="31.0" prefWidth="230.0" />
             </children>
         </Pane>
     </children>

@@ -36,15 +36,7 @@ public class AddGroupController implements Initializable {
     protected void onAddClick() throws Exception {
         StudentGroup group = new StudentGroup(groupName.getText());
         DataHandler<StudentGroup> dh = new DataHandler<StudentGroup>("CreateStudentGroup", group);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Dodano Grupę");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Dodano Grupę");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {

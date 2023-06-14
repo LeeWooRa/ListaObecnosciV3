@@ -1,6 +1,5 @@
 package clientapp.listaobecnosci;
 
-import clientapp.listaobecnosci.Shared.Entities.Student;
 import clientapp.listaobecnosci.Shared.Entities.StudentGroup;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
 import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
@@ -13,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,24 +45,10 @@ public class DeleteGroupController implements Initializable {
     }
     @FXML
     protected void onDeleteClick() throws Exception {
-        String selectedGroupName = group.getValue();
-        Integer groupId = -1;
-        for (StudentGroup gr : groupList) {
-            if(gr.getGroupName().equals(selectedGroupName)){
-                groupId = gr.getGroupId();
-                break;
-            }
-        }
+        Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+
         DataHandler<Integer> dh = new DataHandler<Integer>("DeleteStudentGroup", groupId);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Usunięto grupę");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Usunięto grupę");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {

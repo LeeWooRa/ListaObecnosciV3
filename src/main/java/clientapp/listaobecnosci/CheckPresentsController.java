@@ -16,11 +16,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CheckPresentsController implements Initializable {
@@ -84,22 +82,8 @@ public class CheckPresentsController implements Initializable {
     @FXML
     protected void getPeriodList() throws Exception {
         if(subject.getValue() != null && group.getValue() != null){
-            String selectedGroupName = group.getValue();
-            Integer groupId = -1;
-            for (StudentGroup gr : groupList) {
-                if(gr.getGroupName().equals(selectedGroupName)){
-                    groupId = gr.getGroupId();
-                    break;
-                }
-            }
-            String selectedSubjectName = subject.getValue();
-            Integer subjectId = -1;
-            for (Subject sub : subjectList) {
-                if(sub.getName().equals(selectedSubjectName)){
-                    subjectId = sub.getSubjectId();
-                    break;
-                }
-            }
+            Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+            Integer subjectId = Utils.getSubjectIdFromListView(subject.getValue(), subjectList);
 
             GetPeriodsListVm periodListVm = new GetPeriodsListVm(groupId, subjectId);
             DataHandler<GetPeriodsListVm> dh = new DataHandler<GetPeriodsListVm>("GetListForGroupAndSubject", periodListVm);
@@ -118,22 +102,8 @@ public class CheckPresentsController implements Initializable {
 
     @FXML
     protected void showStudentList() throws Exception {
-        String selectedPeriod = period.getValue();
-        Integer periodId = -1;
-        for (Period per : periodList) {
-            if((per.getDate() + " " + per.getStartTime() + " - " + per.getEndTime()).equals(selectedPeriod)){
-                periodId = per.getPeriodId();
-                break;
-            }
-        }
-        String selectedGroupName = group.getValue();
-        Integer groupId = -1;
-        for (StudentGroup gr : groupList) {
-            if(gr.getGroupName().equals(selectedGroupName)){
-                groupId = gr.getGroupId();
-                break;
-            }
-        }
+        Integer periodId = Utils.getPeriodIdFromListView(period.getValue(), periodList);
+
         DataHandler<Integer> dh = new DataHandler<Integer>("GetPresenceList", periodId);
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);
@@ -197,14 +167,6 @@ public class CheckPresentsController implements Initializable {
     @FXML
     protected void savePresense() throws Exception {
         DataHandler<ArrayList<PresenceVm>> dh = new DataHandler<ArrayList<PresenceVm>>("UpdatePresence", presenceList);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Zaktualizowano obecność");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Zaktualizowano obecność");
     }
 }

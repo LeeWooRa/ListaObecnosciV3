@@ -1,6 +1,5 @@
 package clientapp.listaobecnosci;
 
-import clientapp.listaobecnosci.Shared.Entities.StudentGroup;
 import clientapp.listaobecnosci.Shared.Entities.Subject;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
 import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
@@ -13,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,24 +45,10 @@ public class DeleteSubjectController implements Initializable {
     }
     @FXML
     protected void onDeleteClick() throws Exception {
-        String selectedSubjectName = subject.getValue();
-        Integer subjectId = -1;
-        for (Subject sub : subjectList) {
-            if(sub.getName().equals(selectedSubjectName)){
-                subjectId = sub.getSubjectId();
-                break;
-            }
-        }
+        Integer subjectId = Utils.getSubjectIdFromListView(subject.getValue(), subjectList);
+
         DataHandler<Integer> dh = new DataHandler<Integer>("DeleteSubject", subjectId);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Usunięto przedmiot");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Usunięto przedmiot");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {

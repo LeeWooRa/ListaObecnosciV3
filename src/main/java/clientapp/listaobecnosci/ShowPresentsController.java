@@ -82,22 +82,8 @@ public class ShowPresentsController implements Initializable {
     @FXML
     protected void getPeriodList() throws Exception {
         if(subject.getValue() != null && group.getValue() != null){
-            String selectedGroupName = group.getValue();
-            Integer groupId = -1;
-            for (StudentGroup gr : groupList) {
-                if(gr.getGroupName().equals(selectedGroupName)){
-                    groupId = gr.getGroupId();
-                    break;
-                }
-            }
-            String selectedSubjectName = subject.getValue();
-            Integer subjectId = -1;
-            for (Subject sub : subjectList) {
-                if(sub.getName().equals(selectedSubjectName)){
-                    subjectId = sub.getSubjectId();
-                    break;
-                }
-            }
+            Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+            Integer subjectId = Utils.getSubjectIdFromListView(subject.getValue(), subjectList);
 
             GetPeriodsListVm periodListVm = new GetPeriodsListVm(groupId, subjectId);
             DataHandler<GetPeriodsListVm> dh = new DataHandler<GetPeriodsListVm>("GetListForGroupAndSubject", periodListVm);
@@ -116,23 +102,8 @@ public class ShowPresentsController implements Initializable {
 
     @FXML
     protected void showStudentList() throws Exception {
-        String selectedPeriod = period.getValue();
-        Integer periodId = -1;
-        for (Period per : periodList) {
-            String test = per.getDate()+" "+per.getStartTime()+" - "+per.getEndTime();
-            if(test.equals(selectedPeriod)){
-                periodId = per.getPeriodId();
-                break;
-            }
-        }
-        String selectedGroupName = group.getValue();
-        Integer groupId = -1;
-        for (StudentGroup gr : groupList) {
-            if(gr.getGroupName().equals(selectedGroupName)){
-                groupId = gr.getGroupId();
-                break;
-            }
-        }
+        Integer periodId = Utils.getPeriodIdFromListView(period.getValue(), periodList);
+
         DataHandler<Integer> dh = new DataHandler<Integer>("GetPresenceList", periodId);
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);

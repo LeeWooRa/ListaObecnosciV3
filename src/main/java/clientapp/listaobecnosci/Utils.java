@@ -1,10 +1,18 @@
 package clientapp.listaobecnosci;
 
+import clientapp.listaobecnosci.Shared.Entities.Period;
+import clientapp.listaobecnosci.Shared.Entities.StudentGroup;
+import clientapp.listaobecnosci.Shared.Entities.Subject;
+import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
+import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
+import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
+import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -12,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+
 /**
  * Klasa zawierająca często używane funkcje
  * */
@@ -61,5 +71,52 @@ public class Utils {
         }
 
         return json;
+    }
+
+    public static void sendToServer(DataHandler<?> dh, Label msg, String successMsg) throws Exception {
+        String json = JsonConverter.convertClassToJson(dh);
+        String respond = Utils.connectToServer(json);
+        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
+        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
+        if (dataHandler.isSuccess()) {
+            msg.setText(successMsg);
+        } else {
+            msg.setText("Coś poszło nie tak");
+        }
+    }
+
+    public static Integer getPeriodIdFromListView(String selectedPeriod, ArrayList<Period> periodList){
+        Integer periodId = null;
+        for (Period per : periodList) {
+            String test = per.getDate()+" "+per.getStartTime()+" - "+per.getEndTime();
+            if(test.equals(selectedPeriod)){
+                periodId = per.getPeriodId();
+                break;
+            }
+        }
+        return periodId;
+    }
+
+    public static Integer getGroupIdFromListView(String selectedGroupName, ArrayList<StudentGroup> groupList){
+        Integer groupId = null;
+        for (StudentGroup gr : groupList) {
+            if(gr.getGroupName().equals(selectedGroupName)){
+                groupId = gr.getGroupId();
+                break;
+            }
+        }
+
+        return groupId;
+    }
+
+    public static Integer getSubjectIdFromListView(String selectedSubjectName, ArrayList<Subject> subjectList){
+        Integer subjectId = null;
+        for (Subject sub : subjectList) {
+            if(sub.getName().equals(selectedSubjectName)){
+                subjectId = sub.getSubjectId();
+                break;
+            }
+        }
+        return subjectId;
     }
 }

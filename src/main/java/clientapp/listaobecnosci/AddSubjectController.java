@@ -3,9 +3,6 @@ package clientapp.listaobecnosci;
 
 import clientapp.listaobecnosci.Shared.Entities.Subject;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
-import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
-import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
-import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,15 +29,7 @@ public class AddSubjectController implements Initializable {
     protected void onAddClick() throws Exception {
         Subject subject = new Subject(null, subjectName.getText());
         DataHandler<Subject> dh = new DataHandler<Subject>("CreateSubject", subject);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Dodano przedmiot");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Dodano przedmiot");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {

@@ -71,25 +71,11 @@ public class RemoveStudentFromGroupController implements Initializable {
     protected void onDeleteClick() throws Exception {
         String selectedStudent = studentIndex.getValue();
         String[] splitedString = selectedStudent.split(" ");
-        String selectedGroupName = group.getValue();
-        Integer groupId = -1;
-        for (StudentGroup gr : groupList) {
-            if(gr.getGroupName().equals(selectedGroupName)){
-                groupId = gr.getGroupId();
-                break;
-            }
-        }
+        Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+
         StudentToGroupVm studendToGroup = new StudentToGroupVm(groupId, splitedString[2]);
         DataHandler<StudentToGroupVm> dh = new DataHandler<StudentToGroupVm>("DeleteStudentFromGroup", studendToGroup);
-        String json = JsonConverter.convertClassToJson(dh);
-        String respond = Utils.connectToServer(json);
-        TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
-        ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-        if (dataHandler.isSuccess()) {
-            resultMsg.setText("Usunięto studenta z grupy");
-        } else {
-            resultMsg.setText("Coś poszło nie tak");
-        }
+        Utils.sendToServer(dh, resultMsg, "Usunięto studenta z grupy");
     }
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {
