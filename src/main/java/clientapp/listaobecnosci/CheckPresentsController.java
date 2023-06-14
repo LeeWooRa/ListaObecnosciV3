@@ -16,9 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +31,7 @@ public class CheckPresentsController implements Initializable {
     @FXML
     ChoiceBox<String> period;
     @FXML
-    ListView<String> list;
+    ListView<SplitMenuButton> list;
     private Parent root;
     private ArrayList<Period> periodList;
     private ArrayList<StudentGroup> groupList;
@@ -94,7 +92,7 @@ public class CheckPresentsController implements Initializable {
             String selectedSubjectName = subject.getValue();
             Integer subjectId = -1;
             for (Subject sub : subjectList) {
-                if(sub.getName().equals(selectedGroupName)){
+                if(sub.getName().equals(selectedSubjectName)){
                     subjectId = sub.getSubjectId();
                     break;
                 }
@@ -139,9 +137,16 @@ public class CheckPresentsController implements Initializable {
         TypeReference<ResponseHandler<ArrayList<PresenceVm>>> typeReference = new TypeReference<ResponseHandler<ArrayList<PresenceVm>>>() {};
         ResponseHandler<ArrayList<PresenceVm>> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
         if (dataHandler.isSuccess()) {
-            ObservableList<String> listElements = FXCollections.observableArrayList();
+            MenuItem choice1 = new MenuItem("Obecny");
+            MenuItem choice2 = new MenuItem("Nieobecny");
+            MenuItem choice3 = new MenuItem("Usprawiedliwiony");
+            MenuItem choice4 = new MenuItem("Spóźniony");
+            ObservableList<SplitMenuButton> listElements = FXCollections.observableArrayList();
             for (PresenceVm pres : dataHandler.getData()) {
-                listElements.add(pres.getStudentIndex()+" "+pres.getFirstName()+" "+pres.getLastName()+" - "+pres.getStatus());
+                SplitMenuButton splitMenuButton = new SplitMenuButton();
+                splitMenuButton.setText(pres.getStudentIndex()+" "+pres.getFirstName()+" "+pres.getLastName());
+                splitMenuButton.getItems().addAll(choice1, choice2, choice3);
+                listElements.add(splitMenuButton);
             }
             list.setItems(listElements);
         }

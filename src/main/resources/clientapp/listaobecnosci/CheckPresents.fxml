@@ -19,7 +19,7 @@
                 <Label layoutX="232.0" layoutY="89.0" styleClass="formLabel" text="Przedmiot" />
                 <ChoiceBox fx:id="period" layoutX="416.0" layoutY="119.0" onAction="#showStudentList" prefHeight="31.0" prefWidth="151.0" />
                 <Label layoutX="416.0" layoutY="89.0" styleClass="formLabel" text="Termin" />
-                <ListView fx:id="list" layoutX="47.0" layoutY="189.0" prefHeight="318.0" prefWidth="520.0" />
+            <ListView layoutX="47.0" layoutY="187.0" prefHeight="308.0" prefWidth="522.0" />
             </children>
         </Pane>
     </children>
