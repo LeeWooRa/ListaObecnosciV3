@@ -54,7 +54,7 @@ public class AddStudentToGroupController implements Initializable {
         String selectedGroupName = group.getValue();
         Integer groupId = -1;
         for (StudentGroup gr : groupList) {
-            if(gr.getGroupName() == selectedGroupName){
+            if(gr.getGroupName().equals(selectedGroupName)){
                 groupId = gr.getGroupId();
                 break;
             }

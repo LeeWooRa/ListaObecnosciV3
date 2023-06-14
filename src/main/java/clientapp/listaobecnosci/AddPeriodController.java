@@ -89,7 +89,7 @@ public class AddPeriodController implements Initializable {
         String selectedGroupName = group.getValue();
         Integer groupId = -1;
         for (StudentGroup gr : groupList) {
-            if(gr.getGroupName() == selectedGroupName){
+            if(gr.getGroupName().equals(selectedGroupName)){
                 groupId = gr.getGroupId();
                 break;
             }
@@ -97,7 +97,7 @@ public class AddPeriodController implements Initializable {
         String selectedSubjectName = subject.getValue();
         Integer subjectId = -1;
         for (Subject sub : subjectList) {
-            if(sub.getName() == selectedSubjectName){
+            if(sub.getName().equals(selectedSubjectName)){
                 subjectId = sub.getSubjectId();
                 break;
             }

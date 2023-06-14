@@ -86,7 +86,7 @@ public class CheckPresentsController implements Initializable {
             String selectedGroupName = group.getValue();
             Integer groupId = -1;
             for (StudentGroup gr : groupList) {
-                if(gr.getGroupName() == selectedGroupName){
+                if(gr.getGroupName().equals(selectedGroupName)){
                     groupId = gr.getGroupId();
                     break;
                 }
@@ -94,7 +94,7 @@ public class CheckPresentsController implements Initializable {
             String selectedSubjectName = subject.getValue();
             Integer subjectId = -1;
             for (Subject sub : subjectList) {
-                if(sub.getName() == selectedGroupName){
+                if(sub.getName().equals(selectedGroupName)){
                     subjectId = sub.getSubjectId();
                     break;
                 }
@@ -120,7 +120,7 @@ public class CheckPresentsController implements Initializable {
         String selectedPeriod = period.getValue();
         Integer periodId = -1;
         for (Period per : periodList) {
-            if((per.getDate()+" "+per.getStartTime()+" - "+per.getEndTime()) == selectedPeriod){
+            if((per.getDate() + " " + per.getStartTime() + " - " + per.getEndTime()).equals(selectedPeriod)){
                 periodId = per.getPeriodId();
                 break;
             }
@@ -128,7 +128,7 @@ public class CheckPresentsController implements Initializable {
         String selectedGroupName = group.getValue();
         Integer groupId = -1;
         for (StudentGroup gr : groupList) {
-            if(gr.getGroupName() == selectedGroupName){
+            if(gr.getGroupName().equals(selectedGroupName)){
                 groupId = gr.getGroupId();
                 break;
             }
