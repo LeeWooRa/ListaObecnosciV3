@@ -58,7 +58,7 @@ public class HomeController {
     }
     @FXML
     protected void onCheckPresentsClick(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("CheckPresentsList.fxml"));
+        root = FXMLLoader.load(getClass().getResource("CheckPresents.fxml"));
         Utils.switchScene(event, root);
     }
     @FXML

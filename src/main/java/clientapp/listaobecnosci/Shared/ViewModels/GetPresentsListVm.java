@@ -4,7 +4,7 @@ public class GetPresentsListVm {
 
     private Integer groupId;
 
-    private Integer periodId;
+    private    Integer periodId;
 
     public GetPresentsListVm(Integer groupId, Integer periodId) {
         this.groupId = groupId;
