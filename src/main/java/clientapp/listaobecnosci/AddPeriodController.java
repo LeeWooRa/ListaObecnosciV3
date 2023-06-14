@@ -97,7 +97,7 @@ public class AddPeriodController implements Initializable {
         String selectedSubjectName = subject.getValue();
         Integer subjectId = -1;
         for (Subject sub : subjectList) {
-            if(sub.getName() == selectedGroupName){
+            if(sub.getName() == selectedSubjectName){
                 subjectId = sub.getSubjectId();
                 break;
             }
