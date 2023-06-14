@@ -109,7 +109,7 @@ public class AddPeriodController implements Initializable {
         TypeReference<ResponseHandler<Boolean>> typeReference = new TypeReference<ResponseHandler<Boolean>>() {};
         ResponseHandler<Boolean> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
         if (dataHandler.isSuccess()) {
-            resultMsg.setText("Dodano Studenta");
+            resultMsg.setText("Dodano Termin");
         } else {
             resultMsg.setText("Coś poszło nie tak");
         }
