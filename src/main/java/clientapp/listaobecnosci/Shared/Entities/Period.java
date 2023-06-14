@@ -9,13 +9,13 @@ public class Period {
     private Date date;
     private Time startTime;
     private Time endTime;
-    private int groupId;
-    private int subjectId;
+    private Integer groupId;
+    private Integer subjectId;
 
     public Period() {
     }
 
-    public Period(Date date, Time startTime, Time endTime, int groupId, int subjectId) {
+    public Period(Date date, Time startTime, Time endTime, Integer groupId, Integer subjectId) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -23,7 +23,7 @@ public class Period {
         this.subjectId = subjectId;
     }
 
-    public Period(Integer periodId, Date date, Time startTime, Time endTime, int groupId, int subjectId) {
+    public Period(Integer periodId, Date date, Time startTime, Time endTime, Integer groupId, Integer subjectId) {
         this.periodId = periodId;
         this.date = date;
         this.startTime = startTime;
@@ -66,19 +66,19 @@ public class Period {
         this.endTime = endTime;
     }
 
-    public int getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
-    public int getSubjectId() {
+    public Integer getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(Integer subjectId) {
         this.subjectId = subjectId;
     }
 }

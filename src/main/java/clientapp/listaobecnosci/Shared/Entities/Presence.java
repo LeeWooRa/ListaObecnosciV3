@@ -5,13 +5,13 @@ public class Presence {
 
     private String studentIndex;
 
-    private int periodId;
+    private Integer periodId;
     private String status;
 
     public Presence() {
     }
 
-    public Presence(Integer presenceId, String studentIndex, int periodId, String status) {
+    public Presence(Integer presenceId, String studentIndex, Integer periodId, String status) {
         this.presenceId = presenceId;
         this.studentIndex = studentIndex;
         this.periodId = periodId;
@@ -28,11 +28,11 @@ public class Presence {
         this.studentIndex = studentIndex;
     }
 
-    public int getPeriodId() {
+    public Integer getPeriodId() {
         return periodId;
     }
 
-    public void setPeriodId(int periodId) {
+    public void setPeriodId(Integer periodId) {
         this.periodId = periodId;
     }
 
