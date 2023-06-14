@@ -14,12 +14,14 @@
                 <ChoiceBox fx:id="group" layoutX="47.0" layoutY="119.0" onAction="#getPeriodList" prefHeight="31.0" prefWidth="151.0" />
                 <Label layoutX="50.0" layoutY="89.0" styleClass="formLabel" text="Grupa" />
                 <Label layoutX="265.0" layoutY="45.0" styleClass="title" text="Lista obecności" />
-                <Button layoutX="280.0" layoutY="526.0" mnemonicParsing="false" onAction="#onBackClick" text="Powrót" />
+                <Button layoutX="280.0" layoutY="550.0" mnemonicParsing="false" onAction="#onBackClick" text="Powrót" />
                 <ChoiceBox fx:id="subject" layoutX="232.0" layoutY="119.0" onAction="#getPeriodList" prefHeight="31.0" prefWidth="151.0" />
                 <Label layoutX="232.0" layoutY="89.0" styleClass="formLabel" text="Przedmiot" />
                 <ChoiceBox fx:id="period" layoutX="416.0" layoutY="119.0" onAction="#showStudentList" prefHeight="31.0" prefWidth="151.0" />
                 <Label layoutX="416.0" layoutY="89.0" styleClass="formLabel" text="Termin" />
-            <ListView layoutX="47.0" layoutY="187.0" prefHeight="308.0" prefWidth="522.0" />
+            <ListView fx:id="list" layoutX="47.0" layoutY="187.0" prefHeight="281.0" prefWidth="522.0" />
+            <Button layoutX="172.0" layoutY="495.0" mnemonicParsing="false" onAction="#savePresense" prefHeight="25.0" prefWidth="273.0" text="Zapisz" />
+                <Label fx:id="resultMsg" alignment="CENTER" layoutX="1.0" layoutY="527.0" prefHeight="17.0" prefWidth="613.0" text="efr" textAlignment="CENTER" />
             </children>
         </Pane>
     </children>
