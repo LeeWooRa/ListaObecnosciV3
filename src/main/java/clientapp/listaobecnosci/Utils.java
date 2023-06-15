@@ -85,6 +85,14 @@ public class Utils {
         }
     }
 
+    public static <T> ResponseHandler<T> getFromServer(DataHandler<?> dh, TypeReference<ResponseHandler<T>> typeReference) throws Exception {
+        String json = JsonConverter.convertClassToJson(dh);
+        String respond = Utils.connectToServer(json);
+        ResponseHandler<T> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
+
+        return dataHandler;
+    }
+
     public static Integer getPeriodIdFromListView(String selectedPeriod, ArrayList<Period> periodList){
         Integer periodId = null;
         for (Period per : periodList) {

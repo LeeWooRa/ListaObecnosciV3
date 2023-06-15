@@ -40,30 +40,20 @@ public class ShowPresentsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<StudentGroup>> dh = new DataHandler<ArrayList<StudentGroup>>("GetStudentGroupList", null);
-        String json;
+        TypeReference<ResponseHandler<ArrayList<StudentGroup>>> typeReference = new TypeReference<ResponseHandler<ArrayList<StudentGroup>>>() {};
+        DataHandler<ArrayList<Subject>> dhs = new DataHandler<ArrayList<Subject>>("GetSubjectsList", null);
+        TypeReference<ResponseHandler<ArrayList<Subject>>> typeReference2 = new TypeReference<ResponseHandler<ArrayList<Subject>>>() {};
         try {
-            json = JsonConverter.convertClassToJson(dh);
-            String respond = Utils.connectToServer(json);
-            TypeReference<ResponseHandler<ArrayList<StudentGroup>>> typeReference = new TypeReference<ResponseHandler<ArrayList<StudentGroup>>>() {};
-            ResponseHandler<ArrayList<StudentGroup>> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
+            ResponseHandler<ArrayList<StudentGroup>> dataHandler = Utils.getFromServer(dh, typeReference);
             if (dataHandler.isSuccess()) {
                 groupList = dataHandler.getData();
                 for (StudentGroup gr : groupList) {
                     group.getItems().add(gr.getGroupName());
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        DataHandler<ArrayList<Subject>> dhs = new DataHandler<ArrayList<Subject>>("GetSubjectsList", null);
-        try {
-            json = JsonConverter.convertClassToJson(dhs);
-            String respond = Utils.connectToServer(json);
-            TypeReference<ResponseHandler<ArrayList<Subject>>> typeReference = new TypeReference<ResponseHandler<ArrayList<Subject>>>() {};
-            ResponseHandler<ArrayList<Subject>> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-            if (dataHandler.isSuccess()) {
-                subjectList = dataHandler.getData();
+            ResponseHandler<ArrayList<Subject>> dataHandler2 = Utils.getFromServer(dhs, typeReference2);
+            if (dataHandler2.isSuccess()) {
+                subjectList = dataHandler2.getData();
                 for (Subject sub : subjectList) {
                     subject.getItems().add(sub.getName());
                 }

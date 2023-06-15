@@ -1,6 +1,7 @@
 package clientapp.listaobecnosci;
 
 import clientapp.listaobecnosci.Shared.Entities.StudentGroup;
+import clientapp.listaobecnosci.Shared.Entities.Subject;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
 import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
 import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
@@ -27,12 +28,9 @@ public class DeleteGroupController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<StudentGroup>> dh = new DataHandler<ArrayList<StudentGroup>>("GetStudentGroupList", null);
-        String json = null;
+        TypeReference<ResponseHandler<ArrayList<StudentGroup>>> typeReference = new TypeReference<ResponseHandler<ArrayList<StudentGroup>>>() {};
         try {
-            json = JsonConverter.convertClassToJson(dh);
-            String respond = Utils.connectToServer(json);
-            TypeReference<ResponseHandler<ArrayList<StudentGroup>>> typeReference = new TypeReference<ResponseHandler<ArrayList<StudentGroup>>>() {};
-            ResponseHandler<ArrayList<StudentGroup>> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
+            ResponseHandler<ArrayList<StudentGroup>> dataHandler = Utils.getFromServer(dh, typeReference);
             if (dataHandler.isSuccess()) {
                 groupList = dataHandler.getData();
                 for (StudentGroup gr : groupList) {

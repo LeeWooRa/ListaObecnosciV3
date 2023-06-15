@@ -34,30 +34,23 @@ public class AddStudentToGroupController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<StudentGroup>> dh = new DataHandler<ArrayList<StudentGroup>>("GetStudentGroupList", null);
-        String json;
+        TypeReference<ResponseHandler<ArrayList<StudentGroup>>> typeReference = new TypeReference<ResponseHandler<ArrayList<StudentGroup>>>() {};
+
+        DataHandler<ArrayList<Student>> dhs = new DataHandler<ArrayList<Student>>("GetStudentsWithoutGroupList", null);
+        TypeReference<ResponseHandler<ArrayList<Student>>> typeReference2 = new TypeReference<ResponseHandler<ArrayList<Student>>>() {};
+
         try {
-            json = JsonConverter.convertClassToJson(dh);
-            String respond = Utils.connectToServer(json);
-            TypeReference<ResponseHandler<ArrayList<StudentGroup>>> typeReference = new TypeReference<ResponseHandler<ArrayList<StudentGroup>>>() {};
-            ResponseHandler<ArrayList<StudentGroup>> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
+            ResponseHandler<ArrayList<StudentGroup>> dataHandler = Utils.getFromServer(dh, typeReference);
             if (dataHandler.isSuccess()) {
                 groupList = dataHandler.getData();
                 for (StudentGroup gr : groupList) {
                     group.getItems().add(gr.getGroupName());
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
 
-        DataHandler<ArrayList<Student>> dhs = new DataHandler<ArrayList<Student>>("GetStudentsWithoutGroupList", null);
-        try {
-            json = JsonConverter.convertClassToJson(dhs);
-            String respond = Utils.connectToServer(json);
-            TypeReference<ResponseHandler<ArrayList<Student>>> typeReference = new TypeReference<ResponseHandler<ArrayList<Student>>>() {};
-            ResponseHandler<ArrayList<Student>> dataHandler = JsonConverter.convertJsonToClass(respond, typeReference);
-            if (dataHandler.isSuccess()) {
-                studentList = dataHandler.getData();
+            ResponseHandler<ArrayList<Student>> dataHandler2 = Utils.getFromServer(dhs, typeReference2);
+            if (dataHandler2.isSuccess()) {
+                studentList = dataHandler2.getData();
                 for (Student student : studentList) {
                     studentIndex.getItems().add(student.getFirstName()+" "+student.getLastName()+" "+student.getStudentIndex());
                 }
