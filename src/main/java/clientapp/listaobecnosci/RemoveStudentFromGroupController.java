@@ -47,27 +47,19 @@ public class RemoveStudentFromGroupController implements Initializable {
      * */
     private ArrayList<Student> studentList;
     /**
-     * Funkcja inicjująca kontroler po całkowitym przetworzeniu jego elementu głównego. Pobiera z serwera listę grup i studentów
+     * Funkcja inicjująca kontroler po całkowitym przetworzeniu jego elementu głównego. Pobiera z serwera listę grup
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<StudentGroup>> dh = new DataHandler<ArrayList<StudentGroup>>("GetStudentGroupList", null);
         TypeReference<ResponseHandler<ArrayList<StudentGroup>>> typeReference = new TypeReference<ResponseHandler<ArrayList<StudentGroup>>>() {};
-        DataHandler<ArrayList<Student>> dhs = new DataHandler<ArrayList<Student>>("GetStudentsList", null);
-        TypeReference<ResponseHandler<ArrayList<Student>>> typeReference2 = new TypeReference<ResponseHandler<ArrayList<Student>>>() {};
+
         try {
             ResponseHandler<ArrayList<StudentGroup>> dataHandler = Utils.getFromServer(dh, typeReference);
             if (dataHandler.isSuccess()) {
                 groupList = dataHandler.getData();
                 for (StudentGroup gr : groupList) {
                     group.getItems().add(gr.getGroupName());
-                }
-            }
-            ResponseHandler<ArrayList<Student>> dataHandler2 = Utils.getFromServer(dhs, typeReference2);
-            if (dataHandler2.isSuccess()) {
-                studentList = dataHandler2.getData();
-                for (Student student : studentList) {
-                    studentIndex.getItems().add(student.getFirstName()+" "+student.getLastName()+" "+student.getStudentIndex());
                 }
             }
         } catch (Exception e) {
@@ -95,5 +87,29 @@ public class RemoveStudentFromGroupController implements Initializable {
     protected void onBackClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Utils.switchScene(event, root);
+    }
+    /**
+     * Funkcja pobierająca z serwera listę studentów na podstawie wybranej grupy
+     * @throws Exception wyjątek
+     * */
+    @FXML
+    protected void getStudents(ActionEvent event) throws IOException {
+        if(group.getValue() != null){
+            Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
+            DataHandler<Integer> dhs = new DataHandler<Integer>("GetStudentsListForGroup", groupId);
+            TypeReference<ResponseHandler<ArrayList<Student>>> typeReference2 = new TypeReference<ResponseHandler<ArrayList<Student>>>() {};
+
+            try {
+                ResponseHandler<ArrayList<Student>> dataHandler2 = Utils.getFromServer(dhs, typeReference2);
+                if (dataHandler2.isSuccess()) {
+                    studentList = dataHandler2.getData();
+                    for (Student student : studentList) {
+                        studentIndex.getItems().add(student.getFirstName()+" "+student.getLastName()+" "+student.getStudentIndex());
+                    }
+                }
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
