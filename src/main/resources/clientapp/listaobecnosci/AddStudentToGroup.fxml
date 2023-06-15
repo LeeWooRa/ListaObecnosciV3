@@ -16,7 +16,7 @@
                 <Button layoutX="124.0" layoutY="356.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="25.0" prefWidth="361.0" text="Dodaj" />
                 <Label layoutX="238.0" layoutY="168.0" styleClass="title" text="Dodaj studenta do grupy" />
             <Button layoutX="281.0" layoutY="531.0" mnemonicParsing="false" onAction="#onBackClick" text="Powrót" />
-                <Label fx:id="resultMsg" alignment="CENTER" layoutY="400.0" prefHeight="17.0" prefWidth="613.0" text="efr" textAlignment="CENTER" />
+                <Label fx:id="resultMsg" alignment="CENTER" layoutY="400.0" prefHeight="17.0" prefWidth="613.0" textAlignment="CENTER" />
             <ChoiceBox fx:id="studentIndex" layoutX="69.0" layoutY="265.0" prefHeight="31.0" prefWidth="230.0" />
             </children>
         </Pane>

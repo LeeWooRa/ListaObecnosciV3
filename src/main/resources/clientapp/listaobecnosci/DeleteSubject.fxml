@@ -15,7 +15,7 @@
                 <Button layoutX="126.0" layoutY="329.0" mnemonicParsing="false" onAction="#onDeleteClick" prefHeight="25.0" prefWidth="361.0" text="Usuń" />
                 <Label layoutX="264.0" layoutY="148.0" styleClass="title" text="Usuń przedmiot" />
                 <Button layoutX="281.0" layoutY="517.0" mnemonicParsing="false" onAction="#onBackClick" text="Powrót" />
-                <Label fx:id="resultMsg" alignment="CENTER" layoutY="400.0" prefHeight="17.0" prefWidth="613.0" text="efr" textAlignment="CENTER" />
+                <Label fx:id="resultMsg" alignment="CENTER" layoutY="400.0" prefHeight="17.0" prefWidth="613.0" textAlignment="CENTER" />
             </children>
         </Pane>
     </children>

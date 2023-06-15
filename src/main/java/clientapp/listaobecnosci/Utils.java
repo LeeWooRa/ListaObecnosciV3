@@ -26,6 +26,8 @@ import java.util.ArrayList;
  * Klasa zawierająca często używane funkcje
  * */
 public class Utils {
+    public static String ip = "localhost";
+    public static Integer port = 1234;
     /**
      * Funkcja do zmieniania sceny po kliknięciu w przycisk
      * @param event zdarzenie z którego wyciągnięte zostanie okno
@@ -45,25 +47,19 @@ public class Utils {
     public static String connectToServer(String jsonToSend){
         String json = "";
 
-        try (Socket socket = new Socket("localhost", 1234)) {
+        try (Socket socket = new Socket(ip, port)) {
 
-            // writing to server
             PrintWriter out = new PrintWriter(
                     socket.getOutputStream(), true);
 
-            // reading from server
-            BufferedReader in
-                    = new BufferedReader(new InputStreamReader(
-                    socket.getInputStream()));
+            BufferedReader in  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            // sending the user input to server
             out.println(jsonToSend);
             out.flush();
 
             json = in.readLine();
-            // displaying server reply
-            System.out.println("Server replied "
-                    + json);
+
+            System.out.println("Server replied "+ json);
 
         }
         catch (IOException e) {

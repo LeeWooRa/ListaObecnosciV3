@@ -21,7 +21,7 @@
                 <Label layoutX="416.0" layoutY="89.0" styleClass="formLabel" text="Termin" />
             <ListView fx:id="list" layoutX="47.0" layoutY="187.0" prefHeight="281.0" prefWidth="522.0" />
             <Button layoutX="172.0" layoutY="495.0" mnemonicParsing="false" onAction="#savePresense" prefHeight="25.0" prefWidth="273.0" text="Zapisz" />
-                <Label fx:id="resultMsg" alignment="CENTER" layoutX="1.0" layoutY="527.0" prefHeight="17.0" prefWidth="613.0" text="efr" textAlignment="CENTER" />
+                <Label fx:id="resultMsg" alignment="CENTER" layoutX="1.0" layoutY="527.0" prefHeight="17.0" prefWidth="613.0" textAlignment="CENTER" />
             </children>
         </Pane>
     </children>

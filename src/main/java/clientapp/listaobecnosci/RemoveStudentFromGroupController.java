@@ -96,7 +96,7 @@ public class RemoveStudentFromGroupController implements Initializable {
     protected void getStudents(ActionEvent event) throws IOException {
         if(group.getValue() != null){
             Integer groupId = Utils.getGroupIdFromListView(group.getValue(), groupList);
-            DataHandler<Integer> dhs = new DataHandler<Integer>("GetStudentsListForGroup", groupId);
+            DataHandler<Integer> dhs = new DataHandler<Integer>("GetStudentListForGroup", groupId);
             TypeReference<ResponseHandler<ArrayList<Student>>> typeReference2 = new TypeReference<ResponseHandler<ArrayList<Student>>>() {};
 
             try {

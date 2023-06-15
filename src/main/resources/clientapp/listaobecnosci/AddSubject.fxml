@@ -15,7 +15,7 @@
                 <Button layoutX="127.0" layoutY="347.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="25.0" prefWidth="361.0" text="Dodaj" />
                 <Label layoutX="263.0" layoutY="177.0" styleClass="title" text="Dodaj Przedmiot" />
                 <Button layoutX="281.0" layoutY="533.0" mnemonicParsing="false" onAction="#onBackClick" text="Powrót" />
-                <Label fx:id="resultMsg" alignment="CENTER" layoutY="400.0" prefHeight="17.0" prefWidth="613.0" text="efr" textAlignment="CENTER" />
+                <Label fx:id="resultMsg" alignment="CENTER" layoutY="400.0" prefHeight="17.0" prefWidth="613.0" textAlignment="CENTER" />
             </children>
         </Pane>
     </children>
