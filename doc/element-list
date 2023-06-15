@@ -1,0 +1,8 @@
+module:clientapp.listaobecnosci
+clientapp.listaobecnosci
+clientapp.listaobecnosci.Shared.Entities
+clientapp.listaobecnosci.Shared.Enums
+clientapp.listaobecnosci.Shared.Helpers
+clientapp.listaobecnosci.Shared.Helpers.DataHandler
+clientapp.listaobecnosci.Shared.Helpers.ResponseHandler
+clientapp.listaobecnosci.Shared.ViewModels
