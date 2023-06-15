@@ -38,7 +38,7 @@ public class Utils {
         stage.show();
     }
     /**
-     * Funkcja która wysyła zapytanie do serwera
+     * Funkcja nawiązująca komunikacje z serverem
      * @param jsonToSend wiadomość jaka ma zostać wysłana
      * @return odpowiedź srwera
      * */
@@ -72,7 +72,12 @@ public class Utils {
 
         return json;
     }
-
+    /**
+     * Funkcja przetwarzająca wysłanie wiadomości do serwera z poleceniem modyfikacji damych
+     * @param dh DataHandler przechowujący obiekt do modyfikacji i typ akcji
+     * @param msg Etykieta w której pojawi się komunikat o sukcesie/błędzie
+     * @param successMsg Wiadomość do wyświetlenia po powodzeniu
+     * */
     public static void sendToServer(DataHandler<?> dh, Label msg, String successMsg) throws Exception {
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);
@@ -84,7 +89,12 @@ public class Utils {
             msg.setText("Coś poszło nie tak");
         }
     }
-
+    /**
+     * Funkcja przetwarzająca wysłanie wiadomości do serwera z poleceniem przysłania danych
+     * @param dh DataHandler przechowujący typ akcji
+     * @param typeReference TypeReference przechowujący typ jaki zostanie zwrócony
+     * @return ResponseHandler przechowujący dane z przysłane serwera
+     * */
     public static <T> ResponseHandler<T> getFromServer(DataHandler<?> dh, TypeReference<ResponseHandler<T>> typeReference) throws Exception {
         String json = JsonConverter.convertClassToJson(dh);
         String respond = Utils.connectToServer(json);
@@ -92,7 +102,12 @@ public class Utils {
 
         return dataHandler;
     }
-
+    /**
+     * Funkcja wybierająca id terminu z listy na podstawie wyboru użytkownika
+     * @param selectedPeriod etykieta terminu wybranego przez użytkownika
+     * @param periodList lista terminów
+     * @return id terminu
+     * */
     public static Integer getPeriodIdFromListView(String selectedPeriod, ArrayList<Period> periodList){
         Integer periodId = null;
         for (Period per : periodList) {
@@ -104,7 +119,12 @@ public class Utils {
         }
         return periodId;
     }
-
+    /**
+     * Funkcja wybierająca id grupy z listy na podstawie wyboru użytkownika
+     * @param selectedGroupName etykieta grupy wybranej przez użytkownika
+     * @param groupList lista grup
+     * @return id grupy
+     * */
     public static Integer getGroupIdFromListView(String selectedGroupName, ArrayList<StudentGroup> groupList){
         Integer groupId = null;
         for (StudentGroup gr : groupList) {
@@ -116,7 +136,12 @@ public class Utils {
 
         return groupId;
     }
-
+    /**
+     * Funkcja wybierająca id przedmiotu z listy na podstawie wyboru użytkownika
+     * @param selectedSubjectName etykieta przedmiotu wybranego przez użytkownika
+     * @param subjectList lista przedmiotów
+     * @return id przedmiotów
+     * */
     public static Integer getSubjectIdFromListView(String selectedSubjectName, ArrayList<Subject> subjectList){
         Integer subjectId = null;
         for (Subject sub : subjectList) {

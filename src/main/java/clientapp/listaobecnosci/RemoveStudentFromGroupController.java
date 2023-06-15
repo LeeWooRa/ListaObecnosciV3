@@ -2,9 +2,7 @@ package clientapp.listaobecnosci;
 
 import clientapp.listaobecnosci.Shared.Entities.Student;
 import clientapp.listaobecnosci.Shared.Entities.StudentGroup;
-import clientapp.listaobecnosci.Shared.Entities.Subject;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
-import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
 import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
 import clientapp.listaobecnosci.Shared.ViewModels.StudentToGroupVm;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,23 +13,42 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Klasa kontrolująca szablon dla akcji usuń studenta z grupy
+ * */
 public class RemoveStudentFromGroupController implements Initializable {
+    /**
+     * Pole wyboru przechowujące grupę
+     * */
     @FXML
     ChoiceBox<String> group;
+    /**
+     * Pole wyboru przechowujące indeks studenta
+     * */
     @FXML
     ChoiceBox<String> studentIndex;
+    /**
+     * Etykieta przechowująca komunikat dla użytkownika
+     * */
     @FXML
     Label resultMsg;
     private Parent root;
+    /**
+     * Lista grup z serwera
+     * */
     private ArrayList<StudentGroup> groupList;
-
+    /**
+     * Lista studentów z serwera
+     * */
     private ArrayList<Student> studentList;
+    /**
+     * Funkcja inicjująca kontroler po całkowitym przetworzeniu jego elementu głównego. Pobiera z serwera listę grup i studentów
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<StudentGroup>> dh = new DataHandler<ArrayList<StudentGroup>>("GetStudentGroupList", null);
@@ -57,7 +74,9 @@ public class RemoveStudentFromGroupController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Funkcja wywoływana po kliknięciu przycisku zapisu. Wykonuje usuwanie studenta z grupy.
+     * */
     @FXML
     protected void onDeleteClick() throws Exception {
         String selectedStudent = studentIndex.getValue();
@@ -68,6 +87,10 @@ public class RemoveStudentFromGroupController implements Initializable {
         DataHandler<StudentToGroupVm> dh = new DataHandler<StudentToGroupVm>("DeleteStudentFromGroup", studendToGroup);
         Utils.sendToServer(dh, resultMsg, "Usunięto studenta z grupy");
     }
+    /**
+     * Funkcja wywoływana po kliknięciu przycisku powrotu. Przełącza scenę na główny widok
+     * @param event zdarzenie kliknięcia w przycisk
+     * */
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("Home.fxml"));

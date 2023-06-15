@@ -1,9 +1,7 @@
 package clientapp.listaobecnosci;
 
-import clientapp.listaobecnosci.Shared.Entities.Student;
 import clientapp.listaobecnosci.Shared.Entities.Subject;
 import clientapp.listaobecnosci.Shared.Helpers.DataHandler.DataHandler;
-import clientapp.listaobecnosci.Shared.Helpers.JsonConverter;
 import clientapp.listaobecnosci.Shared.Helpers.ResponseHandler.ResponseHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.event.ActionEvent;
@@ -18,13 +16,28 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Klasa kontrolująca szablon dla akcji usuń przedmiot
+ * */
 public class DeleteSubjectController implements Initializable {
+    /**
+     * Pole wyboru przechowujące przedmiot
+     * */
     @FXML
     ChoiceBox<String> subject;
+    /**
+     * Etykieta przechowująca komunikat dla użytkownika
+     * */
     @FXML
     Label resultMsg;
     private Parent root;
+    /**
+     * Lista przedmiotów z serwera
+     * */
     private ArrayList<Subject> subjectList;
+    /**
+     * Funkcja inicjująca kontroler po całkowitym przetworzeniu jego elementu głównego. Pobiera z serwera listę przedmiotów
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<Subject>> dh = new DataHandler<ArrayList<Subject>>("GetSubjectsList", null);
@@ -41,6 +54,9 @@ public class DeleteSubjectController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * Funkcja wywoływana po kliknięciu przycisku zapisu. Wykonuje usuwanie przedmiotu.
+     * */
     @FXML
     protected void onDeleteClick() throws Exception {
         Integer subjectId = Utils.getSubjectIdFromListView(subject.getValue(), subjectList);
@@ -48,6 +64,10 @@ public class DeleteSubjectController implements Initializable {
         DataHandler<Integer> dh = new DataHandler<Integer>("DeleteSubject", subjectId);
         Utils.sendToServer(dh, resultMsg, "Usunięto przedmiot");
     }
+    /**
+     * Funkcja wywoływana po kliknięciu przycisku powrotu. Przełącza scenę na główny widok
+     * @param event zdarzenie kliknięcia w przycisk
+     * */
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("Home.fxml"));

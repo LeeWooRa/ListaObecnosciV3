@@ -21,22 +21,56 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Klasa kontrolująca szablon dla akcji sprawdz obecność
+ * */
 public class CheckPresentsController implements Initializable {
+    /**
+     * Pole wyboru przechowujące grupę
+     * */
     @FXML
     ChoiceBox<String> group;
+    /**
+     * Pole wyboru przechowujące przedmiot
+     * */
     @FXML
     ChoiceBox<String> subject;
+    /**
+     * Pole wyboru przechowujące termin
+     * */
     @FXML
     ChoiceBox<String> period;
+    /**
+     * Lista przycisków do sprawdzenia obecności
+     * */
     @FXML
     ListView<SplitMenuButton> list;
+    /**
+     * Etykieta przechowująca komunikat dla użytkownika
+     * */
     @FXML
     Label resultMsg;
     private Parent root;
+    /**
+     *  Lista terminów z serwera
+     * */
     private ArrayList<Period> periodList;
+    /**
+     *  Lista grup z serwera
+     * */
     private ArrayList<StudentGroup> groupList;
+    /**
+     *  Lista przedmiotów z serwera
+     * */
     private ArrayList<Subject> subjectList;
+    /**
+     *  Lista obecności do zmodyfikowania
+     * */
     private ArrayList<PresenceVm> presenceList = new ArrayList<PresenceVm>();
+
+    /**
+     * Funkcja inicjująca kontroler po całkowitym przetworzeniu jego elementu głównego. Pobiera z serwera listę grup i przedmiotów
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHandler<ArrayList<StudentGroup>> dh = new DataHandler<ArrayList<StudentGroup>>("GetStudentGroupList", null);
@@ -63,13 +97,19 @@ public class CheckPresentsController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Funkcja wywoływana po kliknięciu przycisku powrotu. Przełącza scenę na główny widok
+     * @param event zdarzenie kliknięcia w przycisk
+     * */
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Utils.switchScene(event, root);
     }
-
+    /**
+     * Funkcja pobierająca z serwera listę terminów na podstawie wybranej grupy i przedmiotu
+     * @throws Exception wyjątek
+     * */
     @FXML
     protected void getPeriodList() throws Exception {
         if(subject.getValue() != null && group.getValue() != null){
@@ -90,7 +130,10 @@ public class CheckPresentsController implements Initializable {
             }
         }
     }
-
+    /**
+     * Funkcja pobierająca z serwera listę obecności studentów na podstawie wybranego terminu i wyświetla ją
+     * @throws Exception wyjątek
+     * */
     @FXML
     protected void showStudentList() throws Exception {
         Integer periodId = Utils.getPeriodIdFromListView(period.getValue(), periodList);
@@ -137,7 +180,12 @@ public class CheckPresentsController implements Initializable {
             list.setItems(listElements);
         }
     }
-
+    /**
+     * Funkcja dodaje obecność do listy obiektów do modyfikacji. Wywoływana przy zmianie wartości statusu dla obecności
+     * @param e zdarzenie wyboru innego statusu
+     * @param presence obecność dla której status jest zmieniany
+     * @param smb przycisk zmiany obecności
+     * */
     private void addToUpdateList(ActionEvent e, PresenceVm presence, SplitMenuButton smb){
         MenuItem item = (MenuItem) e.getSource();
         presence.setStatus(item.getText());
@@ -154,7 +202,10 @@ public class CheckPresentsController implements Initializable {
             presenceList.add(presence);
         }
     }
-
+    /**
+     * Funkcja wysyła żądanie modyfikacji obecności do serwera. Wywoływana po naciśnięciu przycisku zapisu
+     * @throws Exception wyjątek
+     * */
     @FXML
     protected void savePresense() throws Exception {
         DataHandler<ArrayList<PresenceVm>> dh = new DataHandler<ArrayList<PresenceVm>>("UpdatePresence", presenceList);
